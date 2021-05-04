@@ -8,7 +8,7 @@
 .repoBox{
  background-color: rgb(214, 213, 213);
  margin: 5px 0 0 0;
- padding: 5px;
+ padding: 10px 15px;
  min-height: 100px;
 
  }
@@ -17,6 +17,7 @@
      padding-top: 2px;
 
      .description{
+         margin-top: 5px;
          width: 80%;
      }
  }
