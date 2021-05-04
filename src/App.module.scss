@@ -8,6 +8,10 @@
     background-color: rgb(20, 142, 218);
     color: white;
     border: 0;
+    cursor: pointer;
+    &:hover{
+      background-color: rgb(65, 171, 236);
+    }
   }
   input {
     margin: 10px auto 10px auto;

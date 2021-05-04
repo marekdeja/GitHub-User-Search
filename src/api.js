@@ -10,3 +10,13 @@ export const getUsers = (name) =>
         .catch((error) => {
             console.log(error);
         });
+
+        export const getUserRepos = (url) =>
+    axios
+        .get(url)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });

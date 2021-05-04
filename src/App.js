@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import styles from './App.module.scss';
-import { getUsers } from './api';
+import { getUserRepos, getUsers } from './api';
 import { saveUsers } from './redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { AccordionView } from './components/AccordionView';
 
 
 function App() {
@@ -20,39 +20,37 @@ function App() {
 
     const handleSumbit = async (event) => {
         if (searchedWord.length > 0) {
-
             setLoading(true);
             event.preventDefault();
             const fetchData = await getUsers(searchedWord);
             const fiveUsers = fetchData.items.slice(0, 5);
-            dispatch(saveUsers(fiveUsers));
-
-            console.log(fiveUsers);
-          
+            const fiveElementsWithRepos=[]
+            for (let i =0; i<fiveUsers.length; i++){
+                const user = fiveUsers[i]
+                const fetchRepos = await getUserRepos(user.repos_url);
+                user.repos = fetchRepos;
+                fiveElementsWithRepos.push(user)
+            }
+            dispatch(saveUsers(fiveElementsWithRepos));
             setLoading(false);
-        }
 
+        }
     }
 
-    const printResults = () => users.map((user, index) => {
+return (
+    <div className={styles.mainContainer}>
+        <form className="searchForm" onSubmit={handleSumbit}>
+            <input value={searchedWord} onChange={handleSearchChange} placeholder="Enter username"></input>
 
-      // return <Person person={person}  key={`key_${index}`}/>
-    })
+            <button type="submit" >Search</button>
+        </form>
 
-
-    return (
-        <div className={styles.mainContainer}>
-            <form className="searchForm" onSubmit={handleSumbit}>
-                <input value={searchedWord} onChange={handleSearchChange} placeholder="Enter username"></input>
-
-                <button type="submit" >Search</button>
-            </form>
-
-            <div className={styles.results}>
-                {!loading && printResults()}{loading&&<div>Loading...</div>}
-            </div>
+        <div className={styles.results}>
+            {searchedWord && <div>Showing users for <i>{searchedWord}</i>:</div>}
+            {!loading && <AccordionView users={users} />}{loading && <div><br/>Loading...</div>}
         </div>
-    );
+    </div>
+);
 }
 
 export default App;

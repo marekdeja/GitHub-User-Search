@@ -1,0 +1,31 @@
+.panelAntd{
+    background-color: rgb(228, 228, 228);
+    margin-top: 5px; 
+    margin-bottom: 5px;   
+    text-align: left;
+}
+
+.repoBox{
+ background-color: rgb(214, 213, 213);
+ margin: 5px 0 0 0;
+ padding: 5px;
+ min-height: 100px;
+
+ }
+
+ .repoContainer{
+     padding-top: 2px;
+
+     .description{
+         width: 80%;
+     }
+ }
+
+ .firstRow{
+     font-weight: bold;
+     display: flex;
+     justify-content: space-between;
+ }
+
+
+
